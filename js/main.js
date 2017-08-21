@@ -1,16 +1,23 @@
 // Form Submit
 document.getElementById('myForm').addEventListener('submit',saveBookmark);
 
+// Saving Bookmarks
 function saveBookmark(e){
-	var siteName = document.getElementById('inputone');
-	var siteURL = document.getElementById('inputtwo');
+	var siteName = document.getElementById('siteName').value;
+	var siteURL = document.getElementById('siteURL').value;
 
 	var bookmark = {
-		name = siteName,
-		url = siteURL
-	}
+		name: siteName,
+		url: siteURL
+	};
 
-	console.log(bookmark);
+	if (localStorage.getItem('bookmarks') === null){
+		var bookmarks = [];
+		bookmarks.push(bookmark);
+		localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+	}else{
+		var bookmarks = localStorage.getItem('bookmarks');
+	}
 
 	e.preventDefault();
 }
